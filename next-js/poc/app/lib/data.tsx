@@ -4,9 +4,9 @@ import {
     Food,
     Order,
     Reservation,
-} from "@/app/lib/definitions";
-import { restaurants, reservations } from "@/app/lib/dati-di-prova";
-import { getDayOfWeek } from '@/app/lib/utils';
+} from "./definitions";
+import { restaurants, reservations } from "./dati-di-prova";
+import { getDayOfWeek } from './utils';
 
 export default function getRestaurants(): Restaurant[] {
     return restaurants;

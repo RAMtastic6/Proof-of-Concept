@@ -1,5 +1,5 @@
 'use server';
-import {reservations} from '@/app/lib/dati-di-prova';
+import {reservations} from './dati-di-prova';
 
 export async function createReservation(formData: FormData) {
     const rawFormData: {

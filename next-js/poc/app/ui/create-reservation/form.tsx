@@ -1,7 +1,7 @@
 
 import { FormEvent, useState } from "react";
-import { Restaurant } from "@/app/lib/definitions";
-import ReservationModal from "@/app/ui/create-reservation/reservation-modal";
+import { Restaurant } from "../../lib/definitions";
+import ReservationModal from "./reservation-modal";
 
 export default function Form({ restaurant }: { restaurant: Restaurant | null }) {
     const [isModalOpen, setModalOpen] = useState(false);

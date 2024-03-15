@@ -1,5 +1,5 @@
 'use client';
-import { getFilteredRestaurants } from '@/app/lib/data';
+import { getFilteredRestaurants } from '../../lib/data';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
