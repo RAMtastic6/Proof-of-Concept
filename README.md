@@ -27,6 +27,7 @@ Se modifichi i file:
 - Dockerfile
 - compose.yaml
 devi eseuire questo comando per applicare le modifiche
+
 ```bash
 docker-compose up --build
 ```
@@ -46,4 +47,3 @@ Dopo aver eseguito `docker-compose down -v`, puoi eseguire nuovamente `docker-co
 Assicurati di avere un backup dei dati importanti prima di eseguire `docker-compose down -v`, poiché i dati non saranno più recuperabili una volta eliminati.
 
 Per ulteriori informazioni su Docker Compose, consulta la documentazione ufficiale: https://docs.docker.com/compose/
-```
