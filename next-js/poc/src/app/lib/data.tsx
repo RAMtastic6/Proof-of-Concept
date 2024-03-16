@@ -59,6 +59,26 @@ export function getFilteredRestaurants(query: { date: string | null; nameRestaur
     });
 }
 
+interface QueryParams {
+    date: string | null;
+    nameRestaurant: string | null;
+    city: string | null;
+    cuisine: string | null;
+}
+
+export async function getFilteredRestaurantsFromDB(query: QueryParams): Promise<Restaurant[]> {
+    const params = new URLSearchParams();
+    for (const key in query) {
+        if (query[key as keyof QueryParams] !== null) {
+            console.log(key);
+            params.append(key, (query[key as keyof QueryParams]!).toLowerCase());
+        }
+    }
+    const response = await fetch(`http://nestjs:6969/restaurant/filter?${params.toString()}`);
+    console.log(await response.json());
+    return [];
+}
+
 export function getRestaurantById(id: string): Restaurant | null {
     const restaurants = getRestaurants();
     return restaurants.find((restaurant) => restaurant.id.toString() === id) || null;

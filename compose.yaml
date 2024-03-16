@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: easy-meal
+    build: 
+      context: postgres/.
+      dockerfile: Dockerfile
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  nestjs:
+    build: 
+      context: nest-js/easy-meal-backend/.
+      dockerfile: Dockerfile
+    ports:
+      - "6969:6969"
+    volumes:
+      - ./nest-js:/usr/src/app
+    restart: unless-stopped
+
+  nextjs:
+    build:
+      context: next-js/poc/.
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./next-js:/usr/src/app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+  
+volumes:
+  postgres_data:
