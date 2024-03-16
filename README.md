@@ -3,7 +3,7 @@ Proof of Concept per il capitolato Easy Meal.
 ## Installazione
 *Aggiornare questa parte con le istruzioni per l'installazione del progetto.*
 
-# Utilizzo di Docker Compose per avviare i container
+## Utilizzo di Docker Compose per avviare i container
 
 Questo progetto utilizza Docker Compose per gestire l'avvio dei container Docker. Segui le istruzioni di seguito per avviare i container e utilizzare l'applicazione.
 
