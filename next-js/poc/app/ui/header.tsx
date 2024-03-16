@@ -11,7 +11,8 @@ export default function Header() {
 
                     <div className="flex items-center gap-4">
                         <div className="sm:flex sm:gap-4">
-                            <a className="rounded-md bg-red-950 px-5 py-2.5 text-sm font-medium text-white shadow" href="#"> Login </a>
+                            <a className="inline-block rounded bg-orange-950 px-12 py-3 text-sm font-medium text-white hover:bg-white hover:text-orange-900 focus:outline-none focus:ring"
+                                href="#"> Login </a>
                         </div>
                     </div>
                 </div>
