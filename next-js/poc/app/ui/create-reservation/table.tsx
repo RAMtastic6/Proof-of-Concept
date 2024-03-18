@@ -1,8 +1,9 @@
 'use client';
-import { getFilteredRestaurants } from '../../lib/data';
+import { getFilteredRestaurants, getFilteredRestaurantsFromDB } from '../../lib/data';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { RestaurantFilter } from '@/app/lib/definitions';
+import { get } from 'http';
 
 
 export default function RestaurantsTable() {
@@ -13,6 +14,7 @@ export default function RestaurantsTable() {
     const cuisine = searchParams.get('cuisine');
     const parms: RestaurantFilter = { date, nameRestaurant, city, cuisine };
     const restaurants = getFilteredRestaurants(parms);
+    getFilteredRestaurantsFromDB(parms);
     
     if (restaurants.length === 0) {
         return (
