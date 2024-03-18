@@ -4,7 +4,7 @@ import {
     Food,
     Order,
     Reservation,
-} from "@/app/lib/definitions";
+} from "./definitions";
 
 
 export const restaurants: Restaurant[] = [

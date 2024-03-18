@@ -5,9 +5,9 @@ import {
     Order,
     Reservation,
     RestaurantFilter,
-} from "@/app/lib/definitions";
-import { restaurants, reservations } from "@/app/lib/dati-di-prova";
-import { getDayOfWeek } from '@/app/lib/utils';
+} from "./definitions";
+import { restaurants, reservations } from "./dati-di-prova";
+import { getDayOfWeek } from './utils';
 import Restaurant from "./definition/restaurant";
 
 
