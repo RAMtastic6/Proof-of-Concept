@@ -1,14 +1,17 @@
 import {
-    Restaurant,
+    Restaurant as RestaurantOld,
     Menu,
     Food,
     Order,
     Reservation,
+    RestaurantFilter,
 } from "@/app/lib/definitions";
 import { restaurants, reservations } from "@/app/lib/dati-di-prova";
 import { getDayOfWeek } from '@/app/lib/utils';
+import Restaurant from "./definition/restaurant";
 
-export default function getRestaurants(): Restaurant[] {
+
+export default function getRestaurants(): RestaurantOld[] {
     return restaurants;
 }
 
@@ -37,7 +40,7 @@ export function getCities(): string[] {
     return Array.from(new Set(restaurants.map((restaurant) => restaurant.city)));
 }
 
-export function getFilteredRestaurants(query: { date: string | null; nameRestaurant: string | null; city: string | null; cuisine: string | null; }): Restaurant[] {
+export function getFilteredRestaurants(query: { date: string | null; nameRestaurant: string | null; city: string | null; cuisine: string | null; }): RestaurantOld[] {
     const restaurants = getRestaurants();
     return restaurants.filter((restaurant) => {
         if (query.date) {
@@ -59,27 +62,21 @@ export function getFilteredRestaurants(query: { date: string | null; nameRestaur
     });
 }
 
-interface QueryParams {
-    date: string | null;
-    nameRestaurant: string | null;
-    city: string | null;
-    cuisine: string | null;
-}
-
-export async function getFilteredRestaurantsFromDB(query: QueryParams): Promise<Restaurant[]> {
+export async function getFilteredRestaurantsFromDB(query: RestaurantFilter): Promise<Restaurant[]> {
     const params = new URLSearchParams();
     for (const key in query) {
-        if (query[key as keyof QueryParams] !== null) {
+        if (query[key as keyof RestaurantFilter] !== null) {
             console.log(key);
-            params.append(key, (query[key as keyof QueryParams]!).toLowerCase());
+            params.append(key, (query[key as keyof RestaurantFilter]!).toLowerCase());
         }
     }
     const response = await fetch(`http://nestjs:6969/restaurant/filter?${params.toString()}`);
-    console.log(await response.json());
-    return [];
+    const json: any[] = await response.json();
+    console.log(json);
+    return json.map((obj) => Restaurant.fromJson(obj));
 }
 
-export function getRestaurantById(id: string): Restaurant | null {
+export function getRestaurantById(id: string): RestaurantOld | null {
     const restaurants = getRestaurants();
     return restaurants.find((restaurant) => restaurant.id.toString() === id) || null;
 }

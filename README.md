@@ -26,7 +26,8 @@ Tieni presente che NextJS utilizza la porta 3000, NestJS 6969 e Postgres utilizz
 Se modifichi i file:
 - Dockerfile
 - compose.yaml
-devi eseuire questo comando per applicare le modifiche
+
+devi eseguire questo comando per applicare le modifiche
 
 ```bash
 docker-compose up --build

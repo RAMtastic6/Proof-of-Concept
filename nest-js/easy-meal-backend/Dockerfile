@@ -15,6 +15,3 @@ COPY . .
 
 # Espone la porta su cui l'applicazione è in ascolto
 EXPOSE 6969
-
-# Avvia l'applicazione
-CMD ["npm", "run", "start"]

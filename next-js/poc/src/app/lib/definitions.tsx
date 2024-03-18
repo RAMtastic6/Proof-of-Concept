@@ -1,4 +1,3 @@
-
 export type Menu = {
     id: number;
     name: string;
@@ -43,3 +42,10 @@ export type Reservation = {
     restaurantId: number;
     customers: string[];
 };
+
+export interface RestaurantFilter {
+    date: string | null;
+    nameRestaurant: string | null;
+    city: string | null;
+    cuisine: string | null;
+}

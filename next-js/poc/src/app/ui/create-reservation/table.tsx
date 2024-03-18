@@ -2,6 +2,7 @@
 import { getFilteredRestaurants, getFilteredRestaurantsFromDB } from '@/app/lib/data';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { RestaurantFilter } from '@/app/lib/definitions';
 
 
 export default function RestaurantsTable() {
@@ -10,10 +11,9 @@ export default function RestaurantsTable() {
     const date = searchParams.get('date');
     const city = searchParams.get('city');
     const cuisine = searchParams.get('cuisine');
-    const parms = { date, nameRestaurant, city, cuisine };
+    const parms: RestaurantFilter = { date, nameRestaurant, city, cuisine };
     const restaurants = getFilteredRestaurants(parms);
-    const test = getFilteredRestaurantsFromDB(parms);
-
+    
     if (restaurants.length === 0) {
         return (
             <div>

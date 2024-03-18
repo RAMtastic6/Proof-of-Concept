@@ -15,6 +15,3 @@ COPY . .
 
 # Esponi la porta su cui verrà eseguita l'applicazione
 EXPOSE 3000
-
-# Comando per avviare l'applicazione
-CMD ["npm", "run", "dev"]
