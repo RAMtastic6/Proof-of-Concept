@@ -1,9 +1,5 @@
 'use client';
-<<<<<<< HEAD:next-js/poc/src/app/ui/create-reservation/table.tsx
-import { getFilteredRestaurants, getFilteredRestaurantsFromDB } from '@/app/lib/data';
-=======
 import { getFilteredRestaurants } from '../../lib/data';
->>>>>>> origin/P1-165-Creare-schermata-ricerca-ristorante-front-end:next-js/poc/app/ui/create-reservation/table.tsx
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { RestaurantFilter } from '@/app/lib/definitions';
