@@ -1,33 +1,24 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { get } from 'http';
-import { prova } from "../../lib/database/prova";
 import { useEffect, useState } from 'react';
 import { getFilteredRestaurants, RestaurantFilter } from '@/app/lib/database/restaurant';
 
 export default function RestaurantsTable() {
     const searchParams = useSearchParams();
-    const nameRestaurant = searchParams.get('nameRestaurant');
-    const date = searchParams.get('date');
-    const city = searchParams.get('city');
-    const cuisine = searchParams.get('cuisine');
     const [restaurants, setRestaurants] = useState<any[]>([]);
     const [loadingRestaurant, setLoadingRestaurant] = useState(true);
-    const filter: RestaurantFilter = {
-        name: nameRestaurant || "",
-        date: date || "",
-        city: city || "",
-        cuisine: cuisine || ""
-    };
     
     //useEffect per ottenere i ristoranti filtrati ed aspettare che la promise venga risolta
-    //questo e come si farebbe in React (credo?)
-
-    //FIXME: viene chiamata 2 volte
+    //viene chiamata 2 volte ma è normale in RUN DEV
     useEffect(() => {
         async function fetchRestaurants() {
-            console.log('fetchRestaurants');
+            const filter: RestaurantFilter = {
+                name: searchParams.get('nameRestaurant') || "",
+                date: searchParams.get('date') || "",
+                city: searchParams.get('city') || "",
+                cuisine: searchParams.get('cuisine') || ""
+            };
             try {
                 const json = await getFilteredRestaurants(filter);
                 setRestaurants(json);
