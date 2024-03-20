@@ -1,14 +1,14 @@
 import { Restaurant } from "src/restaurant/entities/restaurant.entity";
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToOne, PrimaryColumn } from "typeorm";
 
-enum Days {
+export enum Days {
+    SUNDAY = 'domenica',
     MONDAY = 'lunedì',
     TUESDAY = 'martedì',
     WEDNESDAY = 'mercoledì',
     THURSDAY = 'giovedì',
     FRIDAY = 'venerdì',
     SATURDAY = 'sabato',
-    SUNDAY = 'domenica'
 }
 
 @Entity()
@@ -26,5 +26,6 @@ export class Daysopen {
     closing: string;
 
     @ManyToOne(() => Restaurant, ristorante => ristorante.daysOpen)
+    @JoinColumn({ name: 'restaurant_id' })
     restaurant: Restaurant;
 }

@@ -1,9 +1,22 @@
 import { Endpoints } from "./endpoints";
 
+export interface RestaurantFilter {
+    name: string;
+    date: string;
+    city: string;
+    cuisine: string;
+}
+
 //Otteniamo i ristoranti filtrati
-export async function getFilteredRestaurant(params: Map<string, string>): Promise<JSON> {
-    const urlParams = Array.from(params).map(([key, value]) => `${key}=${value}`).join('&');
-    const response = await fetch(`${Endpoints.restaurant}?${urlParams}`);
+export async function getFilteredRestaurants(params: RestaurantFilter): Promise<[]> {
+    //Inseriamo i parametri nella query string
+    let filter = [];
+    for (const key in params) {
+        if (params[key as keyof RestaurantFilter] != "") {
+            filter.push(`${key}=${params[key as keyof RestaurantFilter]}`);
+        }
+    }
+    const response = await fetch(`${Endpoints.restaurant}filter?${filter.join('&')}`);
     if (!response.ok) {
         throw new Error('Error fetching restaurants from the database');
     }

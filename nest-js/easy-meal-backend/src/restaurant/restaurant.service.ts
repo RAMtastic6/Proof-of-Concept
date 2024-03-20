@@ -4,6 +4,7 @@ import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Days } from 'src/daysopen/entities/daysopen.entity';
 
 @Injectable()
 export class RestaurantService {
@@ -17,19 +18,19 @@ export class RestaurantService {
         nameRestaurant?: string, 
         city?: string, 
         cuisine?: string }): Promise<Restaurant[]> {
-    const queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant');
-    if(query.date) {
+    let queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant');
+    if (query.date) {
       const dayOfWeek = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"][new Date(query.date).getDay()];
-      queryBuilder.andWhere(':dayOfWeek = ANY (restaurant.daysopen)', { dayOfWeek });
+      queryBuilder = queryBuilder.innerJoin('restaurant.daysOpen', 'daysOpen', 'daysOpen.dayOpen = :dayOfWeek', { dayOfWeek });
+    }
+    if (query.nameRestaurant) {
+      queryBuilder = queryBuilder.andWhere('restaurant.name = :name', { name: query.nameRestaurant });
     }
     if (query.city) {
-      queryBuilder.andWhere('restaurant.city = :city', { city: query.city });
+      queryBuilder = queryBuilder.andWhere('restaurant.city = :city', { city: query.city });
     }
     if (query.cuisine) {
-      queryBuilder.andWhere('restaurant.cuisine = :cuisine', { cuisine: query.cuisine });
-    }
-    if(query.nameRestaurant) {
-      queryBuilder.andWhere('restaurant.name = :name', { name: query.nameRestaurant });
+      queryBuilder = queryBuilder.andWhere('restaurant.cuisine = :cuisine', { cuisine: query.cuisine.toLowerCase() });
     }
     return await queryBuilder.getMany();
   }

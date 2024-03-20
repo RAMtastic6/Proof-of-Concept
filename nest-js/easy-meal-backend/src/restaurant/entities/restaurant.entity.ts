@@ -23,11 +23,10 @@ export class Restaurant {
     @Column()
     menu_id: number;
 
-    @OneToOne(() => Menu, menu => menu.restaurant)
+    @OneToOne(() => Menu, menu => menu.restaurant, {cascade: true})
     @JoinColumn({name: "menu_id"})
     menu: Menu;
 
     @OneToMany(() => Daysopen, daysopen => daysopen.restaurant)
-    @JoinColumn({name: "daysopen_id"})
     daysOpen: Daysopen[];
 }

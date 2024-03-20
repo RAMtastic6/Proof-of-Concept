@@ -2,7 +2,7 @@ import { Customer } from "src/customer/entities/customer.entity";
 import { Food } from "src/food/entities/food.entity";
 import { Reservation } from "src/reservation/entities/reservation.entity";
 import { Restaurant } from "src/restaurant/entities/restaurant.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Orders {
@@ -22,11 +22,14 @@ export class Orders {
     quantity: number;
 
     @ManyToOne(() => Food, food => food.orders)
+    @JoinColumn({ name: 'food_id' })
     food: Food;
 
     @ManyToOne(() => Customer, customer => customer.orders)
+    @JoinColumn({ name: 'customer_id' })
     customer: Customer;
 
     @ManyToOne(() => Reservation, reservation => reservation.orders)
-    restaurant: Reservation;
+    @JoinColumn({ name: 'reservation_id' })
+    reservation: Reservation;
 }

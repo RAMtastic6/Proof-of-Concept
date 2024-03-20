@@ -1,6 +1,7 @@
 import { Orders } from "src/orders/entities/order.entity";
+import { Reservation } from "src/reservation/entities/reservation.entity";
 import { ReservationGruop } from "src/reservation/entities/reservation_group.enity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Customer {
@@ -21,4 +22,7 @@ export class Customer {
 
     @OneToMany(() => ReservationGruop, group => group.customer)
     reservation_group: ReservationGruop[];
+
+    @ManyToMany(() => Reservation, reservation => reservation.customers)
+    reservations: Reservation[];
 }
