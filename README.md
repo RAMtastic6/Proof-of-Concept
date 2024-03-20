@@ -20,7 +20,7 @@ Questo comando avvierà i container secondo la configurazione definita nel file 
 Una volta avviati i container, potrai accedere all'applicazione utilizzando il browser o gli strumenti di sviluppo appropriati.
 Per esempio per poter accedere al progetto NextJS collegati al link: http://localhost:3000/create-reservation .
 
-Tieni presente che NextJS utilizza la porta 3000, NestJS 6969 e Postgres utilizza 5432.
+Tieni presente che NextJS utilizza la porta 3000, NestJS 6969 e Postgres utilizza 7070.
 
 ### Modifica dei file Dockerfile e compose.yaml
 Se modifichi i file:

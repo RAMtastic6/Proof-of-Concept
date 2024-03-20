@@ -8,7 +8,6 @@ import {
 } from "./definitions";
 import { restaurants, reservations } from "./dati-di-prova";
 import { getDayOfWeek } from './utils';
-import Restaurant from "./definition/restaurant";
 
 
 export default function getRestaurants(): RestaurantOld[] {
@@ -60,20 +59,6 @@ export function getFilteredRestaurants(query: { date: string | null; nameRestaur
         }
         return true;
     });
-}
-
-export async function getFilteredRestaurantsFromDB(query: RestaurantFilter): Promise<Restaurant[]> {
-    const params = new URLSearchParams();
-    for (const key in query) {
-        if (query[key as keyof RestaurantFilter] !== null) {
-            console.log(key);
-            params.append(key, (query[key as keyof RestaurantFilter]!).toLowerCase());
-        }
-    }
-    const response = await fetch(`http://nestjs:6969/restaurant/filter?${params.toString()}`);
-    const json: any[] = await response.json();
-    console.log(json);
-    return json.map((obj) => Restaurant.fromJson(obj));
 }
 
 export function getRestaurantById(id: string): RestaurantOld | null {
