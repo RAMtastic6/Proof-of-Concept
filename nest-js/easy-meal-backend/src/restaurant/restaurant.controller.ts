@@ -9,7 +9,8 @@ export class RestaurantController {
 
   @Get('filter')
   getFilteredRestaurants(@Query() query: { 
-    nameRestaurant?: string, 
+    date?: string,
+    nameRestaurant?: string,
     city?: string, 
     cuisine?: string }) 
     {
@@ -26,9 +27,24 @@ export class RestaurantController {
     return this.restaurantService.findAll();
   }
 
+  @Get('cuisines')
+  findAllCuisines() {
+    return this.restaurantService.findAllCuisines();
+  }
+
+  @Get('cities')
+  findAllCities() {
+    return this.restaurantService.findAllCities();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.restaurantService.findOne(+id);
+  }
+
+  @Get(':id/menu')
+  findMenuByRestaurantId(@Param('id') id: string) {
+    return this.restaurantService.findMenuByRestaurantId(+id);
   }
 
   @Patch(':id')

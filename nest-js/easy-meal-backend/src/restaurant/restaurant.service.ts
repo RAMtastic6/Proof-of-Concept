@@ -12,11 +12,16 @@ export class RestaurantService {
     private restaurantRepo: Repository<Restaurant>,
   ){}
 
-  async getFilteredRestaurants(query: { 
+  async getFilteredRestaurants(query: {
+        date?: string,
         nameRestaurant?: string, 
         city?: string, 
         cuisine?: string }): Promise<Restaurant[]> {
     const queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant');
+    if(query.date) {
+      const dayOfWeek = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"][new Date(query.date).getDay()];
+      queryBuilder.andWhere(':dayOfWeek = ANY (restaurant.daysopen)', { dayOfWeek });
+    }
     if (query.city) {
       queryBuilder.andWhere('restaurant.city = :city', { city: query.city });
     }
@@ -33,12 +38,33 @@ export class RestaurantService {
     return 'This action adds a new restaurant';
   }
 
-  findAll() {
-    return `This action returns all restaurant`;
+  async findAll(): Promise<Restaurant[]> {
+    const restaurants = this.restaurantRepo.find();
+    return restaurants;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} restaurant`;
+  async findAllCuisines(): Promise<string[]> {
+    const rest = await this.restaurantRepo.createQueryBuilder('restaurant')
+      .select('DISTINCT cuisine')
+      .getRawMany();
+    return rest.map(rest => rest.cuisine);
+  }
+
+  async findAllCities(): Promise<string[]> {
+    const rest = await this.restaurantRepo.createQueryBuilder('restaurant')
+      .select('DISTINCT city')
+      .getRawMany();
+    return rest.map(rest => rest.city);
+  }
+
+  async findMenuByRestaurantId(id: number) {
+    const restaurant = await this.restaurantRepo.findOne({where: {id}, relations: ['menu', 'menu.foods']});
+    return restaurant?.menu ?? {};	
+  }
+
+  async findOne(id: number) {
+    const restaurant = await this.restaurantRepo.findOne({where: {id}});
+    return restaurant ?? {};
   }
 
   update(id: number, updateRestaurantDto: UpdateRestaurantDto) {

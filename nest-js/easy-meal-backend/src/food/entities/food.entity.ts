@@ -1,5 +1,6 @@
 import { Menu } from "src/menu/entities/menu.entity";
-import { Column, Entity, Generated, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Orders } from "src/orders/entities/order.entity";
+import { Column, Entity, Generated, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Food {
@@ -12,10 +13,13 @@ export class Food {
     @Column({type: "float"})
     price: number;
 
-    @PrimaryColumn()
+    @Column()
     menu_id: number;
 
-    @OneToOne(() => Menu)
-    @JoinColumn({ name: "menu_id" })
+    @ManyToOne(() => Menu, menu => menu.foods)
+    @JoinColumn({name: "menu_id"})
     menu: Menu;
+
+    @OneToMany(() => Orders, order => order.food)
+    orders: Orders[];
 }

@@ -1,5 +1,7 @@
+import { Daysopen } from "src/daysopen/entities/daysopen.entity";
 import { Menu } from "src/menu/entities/menu.entity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Orders } from "src/orders/entities/order.entity";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Restaurant {
@@ -21,7 +23,11 @@ export class Restaurant {
     @Column()
     menu_id: number;
 
-    @OneToOne(() => Menu)
-    @JoinColumn({ name: "menu_id" })
+    @OneToOne(() => Menu, menu => menu.restaurant)
+    @JoinColumn({name: "menu_id"})
     menu: Menu;
+
+    @OneToMany(() => Daysopen, daysopen => daysopen.restaurant)
+    @JoinColumn({name: "daysopen_id"})
+    daysOpen: Daysopen[];
 }

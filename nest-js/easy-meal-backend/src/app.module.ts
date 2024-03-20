@@ -5,6 +5,10 @@ import { RestaurantModule } from './restaurant/restaurant.module';
 import { MenuModule } from './menu/menu.module';
 import { FoodModule } from './food/food.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CustomerModule } from './customer/customer.module';
+import { DaysopenModule } from './daysopen/daysopen.module';
+import { OrdersModule } from './orders/orders.module';
+import { ReservationModule } from './reservation/reservation.module';
 
 
 @Module({
@@ -18,7 +22,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'easy-meal',
       autoLoadEntities: true,
       synchronize: true, //FIXME: NEVER USE THIS IN PRODUCTION
-    }),
+    }), CustomerModule, DaysopenModule, OrdersModule, ReservationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
