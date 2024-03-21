@@ -10,7 +10,7 @@ export class RestaurantController {
   @Get('filter')
   getFilteredRestaurants(@Query() query: { 
     date?: string,
-    nameRestaurant?: string,
+    name?: string,
     city?: string, 
     cuisine?: string }) 
     {

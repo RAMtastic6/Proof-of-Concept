@@ -15,16 +15,17 @@ export class RestaurantService {
 
   async getFilteredRestaurants(query: {
         date?: string,
-        nameRestaurant?: string, 
+        name?: string, 
         city?: string, 
         cuisine?: string }): Promise<Restaurant[]> {
     let queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant');
+    //FIXME: non funziona la data e il nome del ristorante
     if (query.date) {
       const dayOfWeek = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"][new Date(query.date).getDay()];
       queryBuilder = queryBuilder.innerJoin('restaurant.daysOpen', 'daysOpen', 'daysOpen.dayOpen = :dayOfWeek', { dayOfWeek });
     }
-    if (query.nameRestaurant) {
-      queryBuilder = queryBuilder.andWhere('restaurant.name = :name', { name: query.nameRestaurant });
+    if (query.name) {
+      queryBuilder = queryBuilder.andWhere('restaurant.name = :name', { name: query.name });
     }
     if (query.city) {
       queryBuilder = queryBuilder.andWhere('restaurant.city = :city', { city: query.city });
