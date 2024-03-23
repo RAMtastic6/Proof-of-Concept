@@ -9,7 +9,7 @@ export default function Page() {
       <div className="container mx-auto mt-4 space-y-4">
         <h1 className="text-lg font-bold text-center text-red-950"> Effettua una prenotazione </h1>
         <RestaurantSearch />
-        <Table />
+        <Table />     
       </div>
     </div>
   )
