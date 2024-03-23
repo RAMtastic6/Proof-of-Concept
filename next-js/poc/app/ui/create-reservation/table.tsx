@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getFilteredRestaurants, RestaurantFilter } from '@/app/lib/database/restaurant';
+import SkeletonTable from './skeleton-table';
 
 export default function RestaurantsTable() {
     const searchParams = useSearchParams();
@@ -20,7 +21,12 @@ export default function RestaurantsTable() {
                 cuisine: searchParams.get('cuisine') || ""
             };
             try {
+                // Simulated wait time
+                console.log('Fecthing restaurants data...');
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                
                 const json = await getFilteredRestaurants(filter);
+                console.log('Data fecth completed after 3 seconds.');
                 setRestaurants(json);
             } catch (error) {
                 console.error('Error fetching restaurants', error);
@@ -35,7 +41,7 @@ export default function RestaurantsTable() {
     if (loadingRestaurant) {
         return (
             <div>
-                <p>Caricamento in corso...</p>
+                <SkeletonTable />
             </div>
         );
     }
@@ -61,7 +67,7 @@ export default function RestaurantsTable() {
                 <tbody className="bg-white divide-y divide-gray-200">
                     {restaurants.map((restaurant) => (
                         <tr key={restaurant.id}>
-                            <td className="px-2 py-1 whitespace-nowrap"><Link href={`/create-reservation/${restaurant.id}/view`}>{restaurant.name}</Link></td>
+                            <td className="px-2 py-1 whitespace-nowrap"><Link href={`/new_create-reservation/${restaurant.id}/view`}>{restaurant.name}</Link></td>
                             <td className="px-2 py-1 whitespace-nowrap">{restaurant.address}</td>
                             <td className="px-2 py-1 whitespace-nowrap">{restaurant.city}</td>
                             <td className="px-2 py-1 whitespace-nowrap">{restaurant.cuisine}</td>

@@ -33,7 +33,8 @@ export default function Form({ restaurant }: { restaurant: Restaurant | null }) 
     };
     return (
         <>
-            <form onSubmit={(e) => handleConfirm(e)}>
+            <form onSubmit={(e) => handleConfirm(e)}
+            >
                 <label>
                     Data:
                     <input name="date" type="date" />
