@@ -24,9 +24,11 @@ export class RestaurantService {
       queryBuilder = queryBuilder.innerJoin('restaurant.daysOpen', 'daysOpen', 'daysOpen.dayOpen = :dayOfWeek', { dayOfWeek });
     }
     if (query.name) {
+      //TODO: Migliorare la ricerca per nome (case insensitive, ricerca parziale, ecc.)
       queryBuilder = queryBuilder.andWhere('restaurant.name = :name', { name: query.name });
     }
     if (query.city) {
+      //TODO: Migliorare la ricerca per città (case insensitive, ricerca parziale, ecc.)
       queryBuilder = queryBuilder.andWhere('restaurant.city = :city', { city: query.city });
     }
     if (query.cuisine) {
