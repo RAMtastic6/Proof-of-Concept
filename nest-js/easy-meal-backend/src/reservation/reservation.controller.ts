@@ -12,6 +12,11 @@ export class ReservationController {
     return this.reservationService.create(createReservationDto);
   }
 
+  @Post('addCustomer')
+  addCustomer(@Body() params: {customer_id: number, reservation_id: number}) {
+    return this.reservationService.addCustomer(params);
+  }
+
   @Get()
   findAll() {
     return this.reservationService.findAll();
