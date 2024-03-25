@@ -16,13 +16,17 @@ export class ReservationService {
   ) {}
   
   async create(createReservationDto: CreateReservationDto) {
+    console.log(createReservationDto.date);
     const reservation = this.reservationRepository.create({
-      date: createReservationDto.date,
+      date: new Date(createReservationDto.date),
       number_people: createReservationDto.number_people,
       restaurant_id: createReservationDto.restaurant_id,
     });
     await this.reservationRepository.save(reservation);
-    /*const group = this.reservationGroupRepository.create({
+
+    //TODO: colleghiamo il cliente alla prenotazione
+    /*
+    const group = this.reservationGroupRepository.create({
       reservation_id: reservation.id,
       customer_id: createReservationDto.customer_id,
     });
