@@ -1,24 +1,24 @@
 import { Endpoints } from "@/app/lib/database/endpoints";
+import { createReservation } from "@/app/lib/database/reservation";
 import { get } from "http";
 
 export default function ReservationForm() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
-        const json: { [key: string]: any } = {};
-        const datetime = new Date(formData.get("date") as string + formData.get("time") as string);
-        console.log(datetime);
-        json["date"] = datetime.toISOString();
-        json["number_people"] = formData.get("number_people");
-        json["restaurant_id"] = 1;
-        json["customer_id"] = 1;
-        const response = await fetch(Endpoints.reservation, {
-            method: "POST",
-            body: JSON.stringify(json),
-        });
-        if (response.ok) {
+        const datetime = new Date(formData.get("date") as string + ' ' +formData.get("time") as string);
+        const json = {
+            date: datetime.toISOString(),
+            number_people: parseInt(formData.get("number_people") as string),
+            restaurant_id: 1,
+            customer_id: 1,
+        };
+        const response = await createReservation(json);
+        if (response) {
+            //Gestire successo
             alert("Prenotazione effettuata con successo!");
         } else {
+            //Gestire errore
             alert("Errore nella prenotazione");
         }
     }
