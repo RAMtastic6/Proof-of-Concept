@@ -24,7 +24,7 @@ services:
       - "6969:6969"
     volumes:
       - ./nest-js:/usr/nest/app
-    command: npm run start #:dev <- Si perdono i logs iniziali
+    command: npm run start:dev #:dev <- Si perdono i logs iniziali
     depends_on:
       - postgres
 

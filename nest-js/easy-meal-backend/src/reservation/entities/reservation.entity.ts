@@ -8,7 +8,7 @@ export class Reservation {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: 'timestamp without time zone'})
     date: Date;
 
     @Column()

@@ -4,16 +4,46 @@ import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Reservation } from './entities/reservation.entity';
 import { Repository } from 'typeorm';
+import { ReservationGruop } from './entities/reservation_group.enity';
 
 @Injectable()
 export class ReservationService {
   constructor(
     @InjectRepository(Reservation)
     private reservationRepository: Repository<Reservation>,
+    @InjectRepository(ReservationGruop)
+    private reservationGroupRepository: Repository<ReservationGruop>,
   ) {}
   
-  create(createReservationDto: CreateReservationDto) {
-    return 'This action adds a new reservation';
+  async create(createReservationDto: CreateReservationDto) {
+    console.log(createReservationDto.date);
+    const reservation = this.reservationRepository.create({
+      date: new Date(createReservationDto.date),
+      number_people: createReservationDto.number_people,
+      restaurant_id: createReservationDto.restaurant_id,
+    });
+    await this.reservationRepository.save(reservation);
+
+    //Aggiungere posti disponibili e tavoli disponibili nel db
+    //oppure calcolare i posti disponibili e i tavoli disponibili in tempo reale?
+
+    //TODO: colleghiamo il cliente alla prenotazione
+    /*
+    const group = this.reservationGroupRepository.create({
+      reservation_id: reservation.id,
+      customer_id: createReservationDto.customer_id,
+    });
+    await this.reservationGroupRepository.save(group);*/
+    return true;
+  }
+
+  async addCustomer(params: {customer_id: number, reservation_id: number}) {
+    const group = this.reservationGroupRepository.create({
+      reservation_id: params.reservation_id,
+      customer_id: params.customer_id,
+    });
+    await this.reservationGroupRepository.save(group);
+    return true;
   }
 
   async findAll(): Promise<Reservation[]> {

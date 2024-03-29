@@ -17,3 +17,14 @@ export async function getReservationById(id: number): Promise<JSON> {
     const data = await response.json();
     return data;
 }
+
+export async function createReservation(reservation: {}): Promise<boolean> {
+    const response = await fetch(Endpoints.reservation, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reservation),
+    });
+    return response.ok;
+}
