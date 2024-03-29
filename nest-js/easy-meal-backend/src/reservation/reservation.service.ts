@@ -24,6 +24,9 @@ export class ReservationService {
     });
     await this.reservationRepository.save(reservation);
 
+    //Aggiungere posti disponibili e tavoli disponibili nel db
+    //oppure calcolare i posti disponibili e i tavoli disponibili in tempo reale?
+
     //TODO: colleghiamo il cliente alla prenotazione
     /*
     const group = this.reservationGroupRepository.create({
