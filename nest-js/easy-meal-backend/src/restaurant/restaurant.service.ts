@@ -66,7 +66,7 @@ export class RestaurantService {
 
   async findOne(id: number) {
     const restaurant = await this.restaurantRepo.findOne({where: {id}});
-    return restaurant ?? {};
+    return restaurant;
   }
 
   update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
@@ -75,5 +75,24 @@ export class RestaurantService {
 
   remove(id: number) {
     return `This action removes a #${id} restaurant`;
+  }
+
+  //Ritorna i tavoli prenotati in un ristorante in una data specifica
+  async getBookedTables(restaurantId: number, date: string) {
+    const [, result] = await this.restaurantRepo.findAndCount({
+      relations: ['reservations'], 
+      where: {
+        id: restaurantId, 
+        reservations: {
+          date: new Date(date)
+        }
+      }
+    });
+    /*const result = await this.restaurantRepo.createQueryBuilder('restaurant')
+      .innerJoin('reservation', 'reservation', 'reservation.restaurant_id = restaurant.id')
+      .where('restaurant.id = :restaurantId', { restaurantId })
+      .andWhere('reservation.date = :date', { date })
+      .getCount();*/
+    return result;
   }
 }
