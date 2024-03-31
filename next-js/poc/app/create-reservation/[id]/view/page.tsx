@@ -1,6 +1,5 @@
 'use client';
-import ReservationForm from '@/app/ui/create-reservation/reservation-form';
-import Form from '@/app/old/ui/create-reservation/form';
+import ReservationForm from '@/app/ui/create-reservation/reservation_form';
 import { getRestaurantById } from '../../../lib/data';
 import Header from '@/app/ui/header';
 

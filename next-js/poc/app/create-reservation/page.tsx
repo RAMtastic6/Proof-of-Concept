@@ -1,5 +1,5 @@
 import Header from '@/app/ui/header';
-import Table from '../ui/create-reservation/table';
+import Table from '../ui/create-reservation/restaurants_table';
 import RestaurantSearch from '../ui/create-reservation/restaurant_search';
 
 export default function Page() {
