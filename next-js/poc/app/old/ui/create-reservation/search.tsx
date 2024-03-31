@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { getCities, getCuisines } from '../../lib/data';
+import { getCities, getCuisines } from '../../../lib/data';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 

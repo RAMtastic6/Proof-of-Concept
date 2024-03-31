@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { createReservation } from '../../lib/actions';
+import { createReservation } from '../../../lib/actions';
 import Link from 'next/link';
 
 export default function ReservationModal({ isOpen, onClose, formData }: { isOpen: boolean, onClose: () => void,formData:FormData }): JSX.Element {
