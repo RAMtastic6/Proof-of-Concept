@@ -56,4 +56,9 @@ export class RestaurantController {
   remove(@Param('id') id: string) {
     return this.restaurantService.remove(+id);
   }
+
+  @Get(':id/booked-tables')
+  getBookedTables(@Param('id') id: string, @Query('date') date: string) {
+    return this.restaurantService.getBookedTables(+id, date);
+  }
 }

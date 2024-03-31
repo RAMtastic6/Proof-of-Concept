@@ -1,6 +1,6 @@
 
 import { FormEvent, useState } from "react";
-import { Restaurant } from "../../lib/definitions";
+import { Restaurant } from "../../../lib/definitions";
 import ReservationModal from "./reservation-modal";
 
 export default function Form({ restaurant }: { restaurant: Restaurant | null }) {

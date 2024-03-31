@@ -2,23 +2,20 @@ import { Customer } from "src/customer/entities/customer.entity";
 import { Food } from "src/food/entities/food.entity";
 import { Reservation } from "src/reservation/entities/reservation.entity";
 import { Restaurant } from "src/restaurant/entities/restaurant.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity({name: 'order_detail'})
 export class Orders {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
+    @PrimaryColumn()
     customer_id: number;
 
-    @Column()
-    restaurant_id: number;
+    @PrimaryColumn()
+    reservation_id: number;
 
-    @Column()
+    @PrimaryColumn()
     food_id: number;
 
-    @Column({name: 'number', default: 1})
+    @Column({default: 1})
     quantity: number;
 
     @ManyToOne(() => Food, food => food.orders)
