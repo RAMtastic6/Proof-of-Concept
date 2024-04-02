@@ -36,9 +36,4 @@ export class ReservationController {
   remove(@Param('id') id: string) {
     return this.reservationService.remove(+id);
   }
-
-  @Get(':id/menu')
-  getMenuByReservationId(@Param('id') id: string) {
-    return this.reservationService.getMenuByReservationId(+id);
-  }
 }

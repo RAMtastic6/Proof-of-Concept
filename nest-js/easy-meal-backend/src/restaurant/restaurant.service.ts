@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRestaurantDto as RestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
@@ -93,6 +93,17 @@ export class RestaurantService {
       .where('restaurant.id = :restaurantId', { restaurantId })
       .andWhere('reservation.date = :date', { date })
       .getCount();*/
+    return result;
+  }
+
+  async getMenuByReservationId(id: number) {
+    const result = await this.restaurantRepo.findOne({ 
+      where: { id }, 
+      relations: ['restaurant.menu', 'restaurant.menu.foods'],
+    });
+    if(result == null) {
+      throw new NotFoundException('Reservation not found');
+    }
     return result;
   }
 }

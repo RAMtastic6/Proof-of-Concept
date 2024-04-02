@@ -61,4 +61,9 @@ export class RestaurantController {
   getBookedTables(@Param('id') id: string, @Query('date') date: string) {
     return this.restaurantService.getBookedTables(+id, date);
   }
+
+  @Get(':id/menu')
+  getMenuByReservationId(@Param('id') id: string) {
+    return this.restaurantService.getMenuByReservationId(+id);
+  }
 }
