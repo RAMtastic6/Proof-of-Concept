@@ -67,10 +67,70 @@ export class ReservationService {
   }
 
   update(id: number, updateReservationDto: UpdateReservationDto) {
+    //TODO: update reservation with this id
     return `This action updates a #${id} reservation`;
   }
 
   remove(id: number) {
+    //TODO: remove all reservations with this id
     return `This action removes a #${id} reservation`;
+  }
+
+  async getOrdersWithQuantityByIdReservation(id: number) {
+    //TODO: :)
+    const result = await this.reservationRepository.find({
+      where: { 
+        id: id 
+      },
+      relations: {
+        restaurant: {
+          menu: {
+            foods: true,
+          }
+        },
+        orders: {
+          customer: true,
+          food: true,
+        }
+      },
+      select: {
+        id: true,
+        restaurant: {
+          id: true, 
+          menu: {
+            id: true,
+            foods: {
+              id: true,
+              name: true,
+              price: true,
+            }
+          }
+        },
+        orders: {
+          quantity: true,
+          customer: {
+            id: true,
+          },
+          food: {
+            id: true,
+          }
+        }
+      },
+    });
+
+    if(result == null) {
+      throw new NotFoundException('Reservation not found');
+    }
+
+    //associamo la quantita del cibo direttamente al menu
+    // e rimuoviamo l'array degli ordini
+    result.forEach(reservation => {
+      reservation.restaurant.menu.foods.forEach((food: any) => {
+        const orders = reservation.orders.filter(order => order.food.id === food.id);
+        food.quantity = orders.reduce((total, order) => total + order.quantity, 0);
+      });
+      delete reservation.orders;
+    });
+    return result;
   }
 }

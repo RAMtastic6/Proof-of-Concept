@@ -36,4 +36,9 @@ export class ReservationController {
   remove(@Param('id') id: string) {
     return this.reservationService.remove(+id);
   }
+
+  @Get(':id/orders')
+  getOrdersWithClients(@Param('id') id: number) {
+    return this.reservationService.getOrdersWithQuantityByIdReservation(id);
+  }
 }
