@@ -5,7 +5,7 @@
 -- Dumped from database version 15.2
 -- Dumped by pg_dump version 15.2
 
--- Started on 2024-03-30 21:25:49
+-- Started on 2024-04-02 19:45:45
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -168,7 +168,7 @@ CREATE TABLE public.reservation (
     date timestamp without time zone NOT NULL,
     number_people integer NOT NULL,
     restaurant_id integer NOT NULL,
-    pending boolean DEFAULT true
+    pending boolean DEFAULT true NOT NULL
 );
 
 
@@ -316,6 +316,9 @@ INSERT INTO public.menu (id, name) OVERRIDING SYSTEM VALUE VALUES (3, 'Menu 3');
 -- Data for Name: order_detail; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.order_detail (quantity, customer_id, reservation_id, food_id) VALUES (1, 1, 1, 2);
+INSERT INTO public.order_detail (quantity, customer_id, reservation_id, food_id) VALUES (1, 1, 1, 3);
+INSERT INTO public.order_detail (quantity, customer_id, reservation_id, food_id) VALUES (4, 1, 1, 1);
 
 
 --
@@ -327,6 +330,9 @@ INSERT INTO public.menu (id, name) OVERRIDING SYSTEM VALUE VALUES (3, 'Menu 3');
 INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (1, '2023-05-05 00:00:00', 1, 1, true);
 INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (2, '2024-03-26 20:20:00', 20, 1, true);
 INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (3, '2024-03-26 20:20:00', 20, 1, true);
+INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (4, '2024-04-03 20:20:00', 20, 1, true);
+INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (5, '2024-04-03 20:20:00', 20, 1, true);
+INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (6, '2024-04-03 20:20:00', 20, 1, true);
 
 
 --
@@ -335,6 +341,9 @@ INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending)
 -- Data for Name: reservation_group; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.reservation_group (reservation_id, customer_id) VALUES (4, 1);
+INSERT INTO public.reservation_group (reservation_id, customer_id) VALUES (5, 1);
+INSERT INTO public.reservation_group (reservation_id, customer_id) VALUES (6, 1);
 
 
 --
@@ -381,7 +390,7 @@ SELECT pg_catalog.setval('public.menu_id_seq', 3, true);
 -- Name: reservation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.reservation_id_seq', 3, true);
+SELECT pg_catalog.setval('public.reservation_id_seq', 6, true);
 
 
 --
@@ -555,7 +564,7 @@ ALTER TABLE ONLY public.order_detail
     ADD CONSTRAINT "FK_c2a7f2de6b58c7c5ccf4303e1aa" FOREIGN KEY (customer_id) REFERENCES public.customer(id);
 
 
--- Completed on 2024-03-30 21:25:49
+-- Completed on 2024-04-02 19:45:45
 
 --
 -- PostgreSQL database dump complete
