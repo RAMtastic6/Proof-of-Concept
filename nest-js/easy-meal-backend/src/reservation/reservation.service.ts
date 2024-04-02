@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,10 +24,10 @@ export class ReservationService {
     }
     const booked = await this.restaurantService.getBookedTables(createReservationDto.restaurant_id, createReservationDto.date);
     if(booked >= restaurant.tables) {
-      throw new Error('No tables available');
+      throw new HttpException('No tables available', 400);
     }
     if(Date.now() > new Date(createReservationDto.date).getTime()) {
-      throw new Error('Invalid date');
+      throw new HttpException('Invalid date', 400);
     }
     const reservation = this.reservationRepository.create({
       date: new Date(createReservationDto.date),
