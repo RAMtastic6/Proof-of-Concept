@@ -64,6 +64,6 @@ export class RestaurantController {
 
   @Get(':id/menu')
   getMenuByReservationId(@Param('id') id: string) {
-    return this.restaurantService.getMenuByReservationId(+id);
+    return this.restaurantService.getMenuByRestaurantId(+id);
   }
 }
