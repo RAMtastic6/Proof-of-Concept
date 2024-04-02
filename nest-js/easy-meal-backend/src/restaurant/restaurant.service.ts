@@ -96,7 +96,7 @@ export class RestaurantService {
     return result;
   }
 
-  async getMenuByReservationId(id: number) {
+  async getMenuByRestaurantId(id: number) {
     const result = await this.restaurantRepo.findOne({ 
       where: { id }, 
       relations: ['restaurant.menu', 'restaurant.menu.foods'],
