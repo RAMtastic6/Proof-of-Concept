@@ -73,16 +73,4 @@ export class ReservationService {
   remove(id: number) {
     return `This action removes a #${id} reservation`;
   }
-
-  async getMenuByReservationId(id: number) {
-    //TODO: rimuovere informazioni in più (?)
-    const result = await this.reservationRepository.findOne({ 
-      where: { id }, 
-      relations: ['restaurant', 'restaurant.menu'],
-    });
-    if(result == null) {
-      throw new NotFoundException('Reservation not found');
-    }
-    return result;
-  }
 }
