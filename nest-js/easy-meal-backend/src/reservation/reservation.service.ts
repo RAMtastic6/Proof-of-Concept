@@ -14,7 +14,7 @@ export class ReservationService {
     private reservationRepository: Repository<Reservation>,
     @InjectRepository(ReservationGruop)
     private reservationGroupRepository: Repository<ReservationGruop>,
-    private restaurantService: RestaurantService,
+    private readonly restaurantService: RestaurantService,
   ) {}
   
   async create(createReservationDto: CreateReservationDto) {
@@ -77,8 +77,8 @@ export class ReservationService {
   }
 
   async getOrdersWithQuantityByIdReservation(id: number) {
-    //TODO: :)
-    const result = await this.reservationRepository.find({
+    //otteniamo il menu e i cibi ordinati per una prenotazione
+    const result = await this.reservationRepository.findOne({
       where: { 
         id: id 
       },
@@ -124,13 +124,11 @@ export class ReservationService {
 
     //associamo la quantita del cibo direttamente al menu
     // e rimuoviamo l'array degli ordini
-    result.forEach(reservation => {
-      reservation.restaurant.menu.foods.forEach((food: any) => {
-        const orders = reservation.orders.filter(order => order.food.id === food.id);
-        food.quantity = orders.reduce((total, order) => total + order.quantity, 0);
-      });
-      delete reservation.orders;
+    result.restaurant.menu.foods.forEach((food: any) => {
+      const orders = result.orders.filter(order => order.food.id === food.id);
+      food.quantity = orders.reduce((total, order) => total + order.quantity, 0);
     });
+    delete result.orders;
     return result;
   }
 }

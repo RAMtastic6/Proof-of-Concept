@@ -17,18 +17,47 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+  @Post('findOne')
+  findOne(@Body() order: {
+    customer_id: number,
+    reservation_id: number,
+    food_id: number,
+  }) {
+    return this.ordersService.findOne(order);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
+  @Post('update')
+  update(@Body() updateOrder: {
+    customer_id: number,
+    reservation_id: number,
+    food_id: number,
+    quantity: number
+  }) {
+    return this.ordersService.update(updateOrder);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+  @Post('remove')
+  remove(@Body() order: {
+    customer_id: number,
+    reservation_id: number,
+    food_id: number,
+  }) {
+    return this.ordersService.remove(order);
+  }
+
+  @Post('partialBill')
+  partialBill(@Body() order: {
+    customer_id: number,
+    reservation_id: number,
+  }) {
+    return this.ordersService.getPartialBill(order);
+  }
+
+  @Post('totalBill')
+  fullBill(@Body() order: {
+    customer_id: number,
+    reservation_id: number,
+  }) {
+    return this.ordersService.getTotalBill(order);
   }
 }
