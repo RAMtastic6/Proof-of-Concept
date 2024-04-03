@@ -63,14 +63,16 @@ export class MyGateway implements OnModuleInit {
         
         const prenotazione : string = body["id_prenotazione"];
         const piatto : string = body["plate"];
-        const inc : number = body["quantity"]
+        const inc : number = body["quantity"];
 
         this.db[prenotazione][piatto] += inc;
-        console.log(this.db);
 
         this.server.emit('onMessage', {
             "ordine" : this.db[prenotazione]
         })
+    
+        // debug
+        console.log(this.db);
     }
 
     @SubscribeMessage('decrement')
@@ -84,11 +86,12 @@ export class MyGateway implements OnModuleInit {
         const dec : number = body["quantity"]
 
         this.db[prenotazione][piatto] -= dec;
-        console.log(this.db);
 
         this.server.emit('onMessage', {
             "ordine" : this.db[prenotazione]
         })
               
+        // debug
+        console.log(this.db);
     }
 }

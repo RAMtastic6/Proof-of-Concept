@@ -28,17 +28,15 @@ services:
     depends_on:
       - postgres
 
-  # socket:
-  #   build: 
-  #     context: websocket-server/.
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - ./nest-js:/usr/nest/app # questa cosa mi pare un pochino sus
-  #   command: npm run start:dev #:dev <- Si perdono i logs iniziali
-  #   depends_on:
-  #     - postgres
+  socket:
+    build: 
+      context: websocket-server/.
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    command: npm run start:dev #:dev <- Si perdono i logs iniziali
+    depends_on:
+      - postgres
 
   nextjs:
     build:
