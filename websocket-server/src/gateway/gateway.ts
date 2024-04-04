@@ -7,16 +7,7 @@ export class MyGateway implements OnModuleInit {
 
     // questi sono tutti dati solamente a scopo dimostrativo
     db = {
-        "id_prenotazione_1" : {
-            "piatto1" : 0,
-            "piatto2" : 0,
-            "piatto3" : 0
-        },
-        "id_prenotazione_2" : {
-            "piatto4" : 0,
-            "piatto5" : 0,
-            "piatto6" : 0
-        },
+        
     }
 
     // db per simulare un'ordinazione
@@ -25,32 +16,54 @@ export class MyGateway implements OnModuleInit {
         "piatto2" : 0
     };
 
+    // campo repository.
+    // quali repository ci servono?
+
+    // reservation repo.
+    // order-details repo.
+    // user repo.
+
+
     @WebSocketServer()
     server: Server;
-    // 'newMessage' è il nome dell'evento sul quale
-    // il server è in ascolto in questo momento
-    // on newMessage() è il metodo che risponde a quell'evento.
-    // all'interno di esso vi è la logica.
-
+    
+    
     onModuleInit() {
+
+        this.db = {
+          id_prenotazione_1: {
+            piatto1: 0,
+            piatto2: 0,
+            piatto3: 0,
+          },
+          id_prenotazione_2: {
+            piatto4: 0,
+            piatto5: 0,
+            piatto6: 0,
+          },
+        };    
+
         this.server.on('connection', (socket) => {
             console.log(socket.id + " connected");
 
 
             if (socket.handshake.query["id_prenotazione"] != null) { // significa che ci stiamo connettendo al server socket.
+                console.log(this.db);
             //     TODO
             //     const result = await this.reservationRepository.find({ ... })
                 const id_prenotazione: string = socket.handshake.query.id_prenotazione.toString(); 
-                console.log(id_prenotazione);
                 this.server.to(socket.id).emit('onMessage', { prenotazione : this.db[id_prenotazione]});
             }
         });
+
+        // TODO: fare le chiamate per poter inizializzare
+        // i vari repository utili a TypeORM per poter
     }
     
-
+    
     // body deve avere questo formato per il momento:
     // {
-    //     "id_ordinazione" : string
+    //     "id_prenotazione" : string
     //     "plate" : string,
     //     "quantity" : number
     // } 
