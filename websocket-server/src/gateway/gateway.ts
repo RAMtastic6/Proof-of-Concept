@@ -28,6 +28,11 @@ export class MyGateway implements OnModuleInit {
     // campo repository.
     // quali repository ci servono?
 
+    // reservation repo.
+    // order-details repo.
+    // user repo.
+
+
     @WebSocketServer()
     server: Server;
 
