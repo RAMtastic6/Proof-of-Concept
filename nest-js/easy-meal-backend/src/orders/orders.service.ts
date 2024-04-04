@@ -74,9 +74,7 @@ export class OrdersService {
         customer_id: order.customer_id,
         reservation_id: order.reservation_id,
       },
-      relations: {
-        food: true
-      }
+      relations: {food: true}
     });
     if (orders.length == 0) {
       throw new NotFoundException('No orders found for this reservation');
