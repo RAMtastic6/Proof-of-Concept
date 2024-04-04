@@ -25,12 +25,11 @@ export class MyGateway implements OnModuleInit {
         "piatto2" : 0
     };
 
+    // campo repository.
+    // quali repository ci servono?
+
     @WebSocketServer()
     server: Server;
-    // 'newMessage' è il nome dell'evento sul quale
-    // il server è in ascolto in questo momento
-    // on newMessage() è il metodo che risponde a quell'evento.
-    // all'interno di esso vi è la logica.
 
     onModuleInit() {
         this.server.on('connection', (socket) => {
