@@ -1,7 +1,7 @@
-import { Customer } from "src/customer/entities/customer.entity";
-import { Food } from "src/food/entities/food.entity";
-import { Reservation } from "src/reservation/entities/reservation.entity";
-import { Restaurant } from "src/restaurant/entities/restaurant.entity";
+import { Customer } from "src/entities/customer.entity";
+import { Food } from "src/entities/food.entity";
+import { Reservation } from "src/entities/reservation.entity";
+import { Restaurant } from "src/entities/restaurant.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'order_detail'})
