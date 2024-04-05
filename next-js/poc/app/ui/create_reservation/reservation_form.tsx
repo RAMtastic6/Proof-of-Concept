@@ -2,7 +2,11 @@ import { createReservation } from "@/app/lib/database/reservation";
 import { useState } from 'react';
 import Link from "next/link";
 
-export default function ReservationForm() {
+export default function ReservationForm({
+    restaurant_id,
+}: {
+    restaurant_id: number;
+}) {
     const [reservationNumber, setReservationNumber] = useState<string | null>(null);
     const [copySuccess, setCopySuccess] = useState(false);
 
@@ -13,26 +17,24 @@ export default function ReservationForm() {
         const json = {
             date: datetime.toISOString(),
             number_people: parseInt(formData.get("number_people") as string),
-            restaurant_id: 1,
+            restaurant_id: restaurant_id,
             customer_id: 1,
         };
 
         // Create reservation
         const response = await createReservation(json);
-        if(response) {
-            // Generate random reservation number for now
-            const reservationNumber = generateRandomReservationNumber();
-            setReservationNumber(reservationNumber);
+        if(response != null && response.status) {
+            setReservationNumber(response.body.id.toString());
         }
         else {
             alert("Errore nella prenotazione");
         }
     }
 
-    const generateRandomReservationNumber = () => {
+    /*const generateRandomReservationNumber = () => {
         // Generate a random 6-digit reservation number for now
         return Math.floor(100000 + Math.random() * 900000).toString();
-    };
+    };*/
 
     const handleCopy = () => {
         const linkText = `/order/${reservationNumber}/view`;

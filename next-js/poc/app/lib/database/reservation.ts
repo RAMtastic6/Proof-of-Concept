@@ -18,7 +18,7 @@ export async function getReservationById(id: number): Promise<JSON> {
     return data;
 }
 
-export async function createReservation(reservation: {}): Promise<boolean> {
+export async function createReservation(reservation: {}): Promise<any> {
     const response = await fetch(Endpoints.reservation, {
         method: "POST",
         headers: {
@@ -26,5 +26,8 @@ export async function createReservation(reservation: {}): Promise<boolean> {
         },
         body: JSON.stringify(reservation),
     });
-    return response.ok;
+    return {
+        body: await response.json(),
+        status: response.ok,
+    };
 }

@@ -35,7 +35,7 @@ export async function getRestaurants(): Promise<JSON> {
 }
 
 //Get a restaurant by id
-export async function getRestaurantById(id: number): Promise<JSON> {
+export async function getRestaurantById(id: number): Promise<any> {
     const response = await fetch(`${Endpoints.restaurant}${id}`);
     if (!response.ok) {
         throw new Error('Error fetching restaurant from the database');

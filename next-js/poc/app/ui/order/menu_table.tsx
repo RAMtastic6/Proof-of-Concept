@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function MenuTable(
-    { menu, incrementHandler }: {
+    { menu, updateHandler, setMenu }: {
         menu: {
             id: number,
             name: string,
@@ -12,18 +12,23 @@ export default function MenuTable(
             description: string,
             foods: any[],
         },
-        incrementHandler: (menu: any) => void
+        updateHandler: (name: string, menu: any) => void,
+        setMenu: any
     },
 ) {
     const decreaseQuantity = (index: number) => {
-        if (menu.foods[index].quanity > 0) {
+        console.log(index);
+        if (menu.foods[index].quantity > 0) {
             menu.foods[index].quantity -= 1;
+            updateHandler('decrement', menu);
+            setMenu(menu);
         }
     };
 
     const increaseQuantity = (index: number) => {
         menu.foods[index].quantity += 1;
-        incrementHandler(menu);
+        updateHandler('increment', menu);
+        setMenu(menu);
     };
 
     const [selectedOption, setSelectedOption] = useState('AllaRomana');
@@ -32,15 +37,7 @@ export default function MenuTable(
         setSelectedOption(option);
     };
 
-    const [price, setPrice] = useState(
-        quantities.reduce((acc, quantity, index) => acc + quantity * menu.foods[index].price, 0)
-    );
-
-    useEffect(() => {
-        setPrice(
-            quantities.reduce((acc, quantity, index) => acc + quantity * menu.foods[index].price, 0)
-        );
-    }, [quantities]);
+    const price = menu.foods.reduce((acc, food) => acc + food.price * food.quantity, 0);
 
     return (
         <>
@@ -68,7 +65,7 @@ export default function MenuTable(
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">Mozzarella, pomodoro, olio EVO</td>
                                 <td className="whitespace-nowrap py-2 text-right">
                                     <div>
-                                        <label htmlFor={`Quantity_${food.id}`} className="sr-only">Quantity</label>
+                                        <label htmlFor={`${food.id}`} className="sr-only">Quantity</label>
 
                                         <div className="inline-block items-center rounded border border-gray-200">
                                             <button type="button" className="size-10 leading-10 text-gray-600 transition hover:opacity-75" onClick={() => decreaseQuantity(menu.foods.indexOf(food))}>
@@ -77,7 +74,7 @@ export default function MenuTable(
 
                                             <input
                                                 type="number"
-                                                id={`Quantity_${food.id}`}
+                                                id={`${food.id}`}
                                                 value={food.quantity}
                                                 className="h-10 w-8 border-transparent text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                                                 readOnly

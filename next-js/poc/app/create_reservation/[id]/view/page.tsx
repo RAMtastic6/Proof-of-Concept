@@ -1,11 +1,30 @@
 'use client';
+import { getRestaurantById } from '@/app/lib/database/restaurant';
 import ReservationForm from '@/app/ui/create_reservation/reservation_form';
-import { getRestaurantById } from '../../../lib/data';
 import Header from '@/app/ui/header';
+import { useEffect, useState } from 'react';
 
 export default function Page({ params }: { params: { id: string } }) {
     const id = params.id;
-    const restaurant = getRestaurantById(id);
+    const [loading, setLoading] = useState(true);
+    const [restaurant, setRestaurant] = useState({
+        name: '',
+        address: '',
+        city: '',
+        cuisine: '',
+    });
+    useEffect(() => {
+        async function fetchData() {
+            const result = await getRestaurantById(parseInt(id));
+            setRestaurant(result);
+            setLoading(false);
+        }
+        fetchData();
+    },[]);
+
+    if(loading)
+        return <div>Loading...</div>;
+
     return (
         <div className="w-full">
             <Header />
@@ -19,14 +38,14 @@ export default function Page({ params }: { params: { id: string } }) {
                         />
                     </div>
                     <div className="self-start py-20 text-orange-950">
-                        <h1 className="text-3xl font-bold">{restaurant?.name}</h1>
-                        <p>Indirizzo: {restaurant?.address}</p>
-                        <p>Città: {restaurant?.city}</p>
-                        <p>Cucina: {restaurant?.cuisine}</p>
+                        <h1 className="text-3xl font-bold">{restaurant.name}</h1>
+                        <p>Indirizzo: {restaurant.address}</p>
+                        <p>Città: {restaurant.city}</p>
+                        <p>Cucina: {restaurant.cuisine}</p>
                     </div>
                 </div>
                 <div>
-                    <ReservationForm />
+                    <ReservationForm restaurant_id={parseInt(id)}/>
                 </div>
             </div>
         </div>

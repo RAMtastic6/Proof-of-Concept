@@ -40,7 +40,7 @@ export class ReservationService {
       customer_id: createReservationDto.customer_id,
     });
     await this.reservationGroupRepository.save(group);
-    return true;
+    return reservation;
   }
 
   async addCustomer(params: {customer_id: number, reservation_id: number}) {

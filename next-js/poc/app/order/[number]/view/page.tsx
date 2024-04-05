@@ -36,7 +36,7 @@ export default function Page({ params }: { params: { number: string }}) {
 	}
   }, []);
 
-  const increment = (menu: any) => socket.emit('increment', { id_prenotazione: params.number, menu: menu});
+  const update = (name: string, menu: any) => socket.emit(name, { id_prenotazione: params.number, menu: menu});
 
   if(loading) {
     return <div>Loading...</div>
@@ -64,7 +64,7 @@ export default function Page({ params }: { params: { number: string }}) {
 				<span className="flex items-center mt-8">
 					<span className="h-px flex-1 bg-orange-950"></span>
 				</span>
-				<MenuTable menu={menu} incrementHandler={increment}/>
+				<MenuTable menu={menu} setMenu={setMenu} updateHandler={update}/>
 				<span className="flex items-center mt-8">
 					<span className="h-px flex-1 bg-orange-950"></span>
 				</span>

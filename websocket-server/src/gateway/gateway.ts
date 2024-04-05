@@ -40,12 +40,14 @@ export class MyGateway implements OnModuleInit {
         const inc: number = body["quantity"];
         this.db[prenotazione][piatto] += inc;*/
 
+        // debug
+        console.log(this.db[prenotazione], body["menu"]);
+
         this.db[prenotazione]["menu"] = body["menu"];
         console.log(this.db[prenotazione]["menu"]);
         this.server.emit('onMessage', this.db[prenotazione]["menu"]);
 
-        // debug
-        console.log(this.db);
+        
     }
 
     @SubscribeMessage('decrement')
