@@ -5,7 +5,7 @@
 -- Dumped from database version 15.2
 -- Dumped by pg_dump version 15.2
 
--- Started on 2024-04-02 19:45:45
+-- Started on 2024-04-05 16:59:05
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -318,7 +318,7 @@ INSERT INTO public.menu (id, name) OVERRIDING SYSTEM VALUE VALUES (3, 'Menu 3');
 
 INSERT INTO public.order_detail (quantity, customer_id, reservation_id, food_id) VALUES (1, 1, 1, 2);
 INSERT INTO public.order_detail (quantity, customer_id, reservation_id, food_id) VALUES (1, 1, 1, 3);
-INSERT INTO public.order_detail (quantity, customer_id, reservation_id, food_id) VALUES (4, 1, 1, 1);
+INSERT INTO public.order_detail (quantity, customer_id, reservation_id, food_id) VALUES (20, 1, 1, 1);
 
 
 --
@@ -333,6 +333,8 @@ INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending)
 INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (4, '2024-04-03 20:20:00', 20, 1, true);
 INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (5, '2024-04-03 20:20:00', 20, 1, true);
 INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (6, '2024-04-03 20:20:00', 20, 1, true);
+INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (7, '2024-04-09 20:20:00', 20, 1, true);
+INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending) OVERRIDING SYSTEM VALUE VALUES (8, '2024-04-18 20:20:00', 20, 1, true);
 
 
 --
@@ -344,6 +346,8 @@ INSERT INTO public.reservation (id, date, number_people, restaurant_id, pending)
 INSERT INTO public.reservation_group (reservation_id, customer_id) VALUES (4, 1);
 INSERT INTO public.reservation_group (reservation_id, customer_id) VALUES (5, 1);
 INSERT INTO public.reservation_group (reservation_id, customer_id) VALUES (6, 1);
+INSERT INTO public.reservation_group (reservation_id, customer_id) VALUES (7, 1);
+INSERT INTO public.reservation_group (reservation_id, customer_id) VALUES (8, 1);
 
 
 --
@@ -390,7 +394,7 @@ SELECT pg_catalog.setval('public.menu_id_seq', 3, true);
 -- Name: reservation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.reservation_id_seq', 6, true);
+SELECT pg_catalog.setval('public.reservation_id_seq', 8, true);
 
 
 --
@@ -564,7 +568,7 @@ ALTER TABLE ONLY public.order_detail
     ADD CONSTRAINT "FK_c2a7f2de6b58c7c5ccf4303e1aa" FOREIGN KEY (customer_id) REFERENCES public.customer(id);
 
 
--- Completed on 2024-04-02 19:45:45
+-- Completed on 2024-04-05 16:59:05
 
 --
 -- PostgreSQL database dump complete

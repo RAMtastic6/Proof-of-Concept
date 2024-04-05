@@ -4,14 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function MenuTable(
-    { menu }: {
+    { menu, incrementHandler }: {
         menu: {
             id: number,
             name: string,
             price: number,
             description: string,
             foods: any[],
-        }
+        },
+        incrementHandler: (menu: any) => void
     },
 ) {
     // Define state for quantity of each item separately
@@ -24,13 +25,20 @@ export default function MenuTable(
             const newQuantities = [...quantities];
             newQuantities[index] = newQuantities[index] - 1;
             setQuantities(newQuantities);
+            menu.foods[index].quantity = newQuantities[index];
         }
     };
+
+    useEffect(() => {
+        setQuantities(menu.foods.map((food) => food.quantity));
+    }, [menu]);
 
     const increaseQuantity = (index: number) => {
         const newQuantities = [...quantities];
         newQuantities[index] = newQuantities[index] + 1;
         setQuantities(newQuantities);
+        menu.foods[index].quantity = newQuantities[index];
+        incrementHandler(menu);
     };
 
     const [selectedOption, setSelectedOption] = useState('AllaRomana');
