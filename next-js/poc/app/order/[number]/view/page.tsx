@@ -7,40 +7,45 @@ import { getRestaurantOrders } from '@/app/lib/database/restaurant';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
-export default function Page({ params }: { params: { number: string }}) {
-  const [restaurant, setRestaurant] = useState<any>();
-  const [menu, setMenu] = useState<any>();
-  const [loading, setLoading] = useState(true);
-  const [socket, setSocket] = useState<any>();
+export default function Page({ params }: { params: { number: string } }) {
+	const [restaurant, setRestaurant] = useState<any>();
+	const [menu, setMenu] = useState<any>();
+	const [loadingRest, setLoadingrRest] = useState(true);
+	const [loadingMenu, setLoadingMenu] = useState(true);
+	const [socket, setSocket] = useState<any>();
 
-  useEffect(() => {
-    async function fetchRestaurant() {
-      const response = await getRestaurantOrders(parseInt(params.number));
-      if (!response) {
-        throw new Error('Error fetching restaurant from the database');
-      }
-      setRestaurant(response.restaurant);
-	  // setMenu(response.restaurant.menu);
-      setLoading(false);
-    }
-    fetchRestaurant();
-	const socket = io(Endpoints.socket+"?id_prenotazione="+params.number);
-	socket.on('onMessage', (menu) => {
-		console.log(menu);
-		setMenu(menu);
-	});
-	setSocket(socket);
-	return () => {
-		socket.off('onMessage');
-		socket.disconnect();
+	useEffect(() => {
+		async function fetchRestaurant() {
+			const response = await getRestaurantOrders(parseInt(params.number));
+			if (!response) {
+				throw new Error('Error fetching restaurant from the database');
+			}
+			setRestaurant(response.restaurant);
+			//setMenu(response.restaurant.menu);
+			setLoadingrRest(false);
+		}
+		fetchRestaurant();
+		const socket = io(Endpoints.socket + "?id_prenotazione=" + params.number);
+		socket.on('onMessage', (menu) => {
+			console.log(menu);
+			setMenu(menu);
+			setLoadingMenu(false);
+		});
+		setSocket(socket);
+		return () => {
+			socket.off('onMessage');
+			socket.disconnect();
+		}
+	}, []);
+
+	const update = (name: string, menu: any) => {
+		console.log(name, menu);
+		socket.emit(name, { id_prenotazione: params.number, menu: menu });
+ };
+
+	if (loadingRest || loadingMenu) {
+		return <div>Loading...</div>
 	}
-  }, []);
-
-  const update = (name: string, menu: any) => socket.emit(name, { id_prenotazione: params.number, menu: menu});
-
-  if(loading) {
-    return <div>Loading...</div>
-  }
 
 	return (
 		<div className="w-full">
@@ -64,11 +69,11 @@ export default function Page({ params }: { params: { number: string }}) {
 				<span className="flex items-center mt-8">
 					<span className="h-px flex-1 bg-orange-950"></span>
 				</span>
-				<MenuTable menu={menu} setMenu={setMenu} updateHandler={update}/>
+				<MenuTable menu={menu} setMenu={setMenu} updateHandler={update} />
 				<span className="flex items-center mt-8">
 					<span className="h-px flex-1 bg-orange-950"></span>
 				</span>
-				{ 
+				{
 					//<OrderCart />
 				}
 			</div>
