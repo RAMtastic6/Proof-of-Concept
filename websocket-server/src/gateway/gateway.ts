@@ -26,7 +26,8 @@ export class MyGateway implements OnModuleInit {
                 // debug
                 console.log(this.db);
                 const id_prenotazione: string = socket.handshake.query.id_prenotazione.toString();
-                // TODO: this.server.to(socket.id).emit('onMessage', this.db[id_prenotazione]);
+                TODO:
+                this.server.to(socket.id).emit('onMessage', this.db[id_prenotazione]['menu']);
             }
         });
 

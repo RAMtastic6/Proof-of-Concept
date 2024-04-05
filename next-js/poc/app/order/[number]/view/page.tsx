@@ -20,7 +20,7 @@ export default function Page({ params }: { params: { number: string }}) {
         throw new Error('Error fetching restaurant from the database');
       }
       setRestaurant(response.restaurant);
-	  setMenu(response.restaurant.menu);
+	  // setMenu(response.restaurant.menu);
       setLoading(false);
     }
     fetchRestaurant();
