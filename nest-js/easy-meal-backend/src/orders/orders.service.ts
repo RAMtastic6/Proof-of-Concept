@@ -96,4 +96,32 @@ export class OrdersService {
     }
     return orders.reduce((acc, order) => acc + (order.quantity * order.food.price), 0);
   }
+
+  async getReservationOrders(id: number) {
+    const orders = await this.ordersRepository.find({
+      where: {
+        reservation_id: id
+      },
+      relations: ['food']
+    });
+    if (orders.length == 0) {
+      throw new NotFoundException('No orders found for this reservation');
+    }
+    return orders;
+  }
+
+  async getRomanBill(order: {
+    reservation_id: number,
+  }) {
+    const orders = await this.ordersRepository.find({
+      where: {
+        reservation_id: order.reservation_id,
+      },
+      relations: ['food']
+    });
+    if (orders.length == 0) {
+      throw new NotFoundException('No orders found for this reservation');
+    }
+    return orders.reduce((acc, order) => acc + (order.quantity * order.food.price), 0);
+  }
 }

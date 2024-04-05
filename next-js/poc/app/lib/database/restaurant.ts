@@ -44,6 +44,15 @@ export async function getRestaurantById(id: number): Promise<JSON> {
     return data;
 }
 
+export async function getRestaurantOrders(id: number) {
+    const response = await fetch(`${Endpoints.reservation}${id}/orders`);
+    if (!response.ok) {
+        throw new Error('Error fetching restaurant menu from the database');
+    }
+    const data = await response.json();
+    return data;
+}
+
 //Get all the cuisines
 export async function getCuisines(): Promise<JSON> {
     const response = await fetch(`${Endpoints.restaurant}cuisines`);

@@ -53,11 +53,23 @@ export class OrdersController {
     return this.ordersService.getPartialBill(order);
   }
 
+  @Post('romanBill')
+  romanBill(@Body() order: {
+    reservation_id: number,
+  }) {
+    return this.ordersService.getRomanBill(order);
+  }
+
   @Post('totalBill')
   fullBill(@Body() order: {
     customer_id: number,
     reservation_id: number,
   }) {
     return this.ordersService.getTotalBill(order);
+  }
+
+  @Get('reservation/:id')
+  getReservationOrders(@Param('id') id: string) {
+    return this.ordersService.getReservationOrders(+id);
   }
 }

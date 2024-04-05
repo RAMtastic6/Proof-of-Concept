@@ -96,7 +96,11 @@ export class ReservationService {
       select: {
         id: true,
         restaurant: {
-          id: true, 
+          id: true,
+          address: true,
+          city: true,
+          cuisine: true,
+          name: true,
           menu: {
             id: true,
             foods: {
