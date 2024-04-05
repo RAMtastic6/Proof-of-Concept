@@ -8,7 +8,7 @@ export default function Header() {
             <div className="mx-auto max-w-screen-xxl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <div className="md:flex md:items-center md:gap-12">
-                        <Link className="block text-white font-bold" href="/create-reservation"> EasyMeal </Link>
+                        <Link className="block text-white font-bold" href="/create_reservation"> EasyMeal </Link>
                     </div>
 
                     <div className="flex items-center gap-4">
