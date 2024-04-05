@@ -15,29 +15,14 @@ export default function MenuTable(
         incrementHandler: (menu: any) => void
     },
 ) {
-    // Define state for quantity of each item separately
-    const [quantities, setQuantities] = useState(
-        menu.foods.map((food) => food.quantity)
-    ); // Initialize with default quantities
-
     const decreaseQuantity = (index: number) => {
-        if (quantities[index] > 0) {
-            const newQuantities = [...quantities];
-            newQuantities[index] = newQuantities[index] - 1;
-            setQuantities(newQuantities);
-            menu.foods[index].quantity = newQuantities[index];
+        if (menu.foods[index].quanity > 0) {
+            menu.foods[index].quantity -= 1;
         }
     };
 
-    useEffect(() => {
-        setQuantities(menu.foods.map((food) => food.quantity));
-    }, [menu]);
-
     const increaseQuantity = (index: number) => {
-        const newQuantities = [...quantities];
-        newQuantities[index] = newQuantities[index] + 1;
-        setQuantities(newQuantities);
-        menu.foods[index].quantity = newQuantities[index];
+        menu.foods[index].quantity += 1;
         incrementHandler(menu);
     };
 
@@ -86,19 +71,19 @@ export default function MenuTable(
                                         <label htmlFor={`Quantity_${food.id}`} className="sr-only">Quantity</label>
 
                                         <div className="inline-block items-center rounded border border-gray-200">
-                                            <button type="button" className="size-10 leading-10 text-gray-600 transition hover:opacity-75" onClick={() => decreaseQuantity(food.id - 1)}>
+                                            <button type="button" className="size-10 leading-10 text-gray-600 transition hover:opacity-75" onClick={() => decreaseQuantity(menu.foods.indexOf(food))}>
                                                 -
                                             </button>
 
                                             <input
                                                 type="number"
                                                 id={`Quantity_${food.id}`}
-                                                value={quantities[food.id - 1]}
+                                                value={food.quantity}
                                                 className="h-10 w-8 border-transparent text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                                                 readOnly
                                             />
 
-                                            <button type="button" className="size-10 leading-10 text-gray-600 transition hover:opacity-75" onClick={() => increaseQuantity(food.id - 1)}>
+                                            <button type="button" className="size-10 leading-10 text-gray-600 transition hover:opacity-75" onClick={() => increaseQuantity(menu.foods.indexOf(food))}>
                                                 +
                                             </button>
                                         </div>
