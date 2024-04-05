@@ -1,9 +1,44 @@
+import MenuTable from '@/app/ui/order/menu_table';
 import Header from '@/app/ui/header';
+import OrderCart from '@/app/ui/order/order_cart';
+import { getRestaurantById } from '../../../lib/data';
 
-export default function Page() {
-  return (
-    <div className="w-full">
-      <Header />
-    </div>
-  )
+export default function Page({ params }: { params: { id: string } }) {
+	const id = params.id;
+	const restaurant = getRestaurantById(id);
+
+	return (
+		<div className="w-full">
+			<Header />
+			<div className="px-10 py-4 flex flex-col">
+				<div className="flex flex-row">
+					<div className="self-start py-1">
+						<img
+							src='/restaurant_template_image.jpg'
+							alt='Restaurant Image template'
+							className="w-128 h-64 mr-4"
+						/>
+					</div>
+					<div className="self-start py-20 text-orange-950">
+						<h1 className="text-3xl font-bold">{restaurant?.name}</h1>
+						<p>Indirizzo: {restaurant?.address}</p>
+						<p>Città: {restaurant?.city}</p>
+						<p>Cucina: {restaurant?.cuisine}</p>
+					</div>
+				</div>
+
+				<span className="flex items-center mt-8">
+					<span className="h-px flex-1 bg-orange-950"></span>
+				</span>
+
+				<MenuTable />
+
+				<span className="flex items-center mt-8">
+					<span className="h-px flex-1 bg-orange-950"></span>
+				</span>
+
+				<OrderCart />
+			</div>
+		</div>
+	)
 }
