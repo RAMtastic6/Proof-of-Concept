@@ -110,46 +110,48 @@ export default function MenuTable(
 										<dt>Totale</dt>
 										<dd>€{price}</dd>
 									</div>
-
-									<div className="flex justify-between !text-base font-medium">
-										<dt>La tua parte</dt>
-									</div>
-									<div>
-										<label
-											htmlFor="AllaRomana"
-											className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 ${selectedOption === 'AllaRomana' ? 'has-[:checked]:border-orange-700 has-[:checked]:ring-1 has-[:checked]:ring-orange-700' : ''}`}
-											onClick={() => handleOptionChange('AllaRomana')}
-										>
-											<p className="text-gray-700">Alla romana</p>
-											<p className="text-gray-900">50€</p>
-											<input
-												type="radio"
-												className="sr-only"
-												id="AllaRomana"
-												checked={selectedOption === 'AllaRomana'}
-												onChange={() => handleOptionChange('AllaRomana')}
-											/>
-										</label>
-									</div>
-
-									<div>
-										<label
-											htmlFor="Ognuno"
-											className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 ${selectedOption === 'Ognuno' ? 'has-[:checked]:border-orange-700 has-[:checked]:ring-1 has-[:checked]:ring-orange-700' : ''}`}
-											onClick={() => handleOptionChange('Ognuno')}
-										>
-											<p className="text-gray-700">Ognun per sé (Coming soon)</p>
-											<p className="text-gray-900">Coming soon</p>
-											<input
-												type="radio"
-												className="sr-only"
-												id="Ognuno"
-												checked={selectedOption === 'Ognuno'}
-												onChange={() => handleOptionChange('Ognuno')}
-											/>
-										</label>
-									</div>
 								</dl>
+
+								<div className="flex justify-between !text-base font-medium">
+									<dt>La tua parte:</dt>
+								</div>
+								<div>
+									<label
+										htmlFor="AllaRomana"
+										className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 ${selectedOption === 'AllaRomana' ? 'has-[:checked]:border-orange-700 has-[:checked]:ring-1 has-[:checked]:ring-orange-700' : ''}`}
+										onClick={() => handleOptionChange('AllaRomana')}
+									>
+										<p className="text-gray-700">Alla romana</p>
+										{/* <p className="text-gray-900">50€</p> */}
+										<input
+											type="radio"
+											className="sr-only"
+											id="AllaRomana"
+											checked={selectedOption === 'AllaRomana'}
+											onChange={() => handleOptionChange('AllaRomana')}
+										/>
+									</label>
+								</div>
+
+								<div>
+									<label
+										htmlFor="Ognuno"
+										// className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 has-[:disabled]:border-black ${selectedOption === 'Ognuno' ? 'has-[:checked]:border-orange-700 has-[:checked]:ring-1 has-[:checked]:ring-orange-700' : ''}`}
+										className={`flex items-center justify-between gap-4 rounded-lg bg-gray-100 p-4 text-sm font-medium shadow-sm`}
+									// onClick={() => handleOptionChange('Ognuno')}
+									>
+										<p className="text-gray-700">Ognun per sé (Coming Soon)</p>
+										{/* <p className="text-gray-900">35€</p> */}
+										<input
+											type="radio"
+											className="sr-only"
+											id="Ognuno"
+											// checked={selectedOption === 'Ognuno'}
+											// onChange={() => handleOptionChange('Ognuno')}
+											disabled
+										/>
+									</label>
+								</div>
 
 								<div className="flex justify-end">
 									<div className="sm:flex sm:gap-4">
