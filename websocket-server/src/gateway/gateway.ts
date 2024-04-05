@@ -10,23 +10,8 @@ export class MyGateway implements OnModuleInit {
 
     }
 
-    // db per simulare un'ordinazione
-    piatti = {
-        "piatto1": 0,
-        "piatto2": 0
-    };
-
-    // campo repository.
-    // quali repository ci servono?
-
-    // reservation repo.
-    // order-details repo.
-    // user repo.
-
-
     @WebSocketServer()
     server: Server;
-
 
     onModuleInit() {
 
@@ -53,12 +38,7 @@ export class MyGateway implements OnModuleInit {
     }
 
 
-    // body deve avere questo formato per il momento:
-    // {
-    //     "id_prenotazione" : string
-    //     "plate" : string,
-    //     "quantity" : number
-    // } 
+    // body deve contenere il menu:
 
     @SubscribeMessage('increment')
     async onIncrement(@MessageBody() body: any) {
