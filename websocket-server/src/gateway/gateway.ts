@@ -66,14 +66,16 @@ export class MyGateway implements OnModuleInit {
         // const result = await this.reservationRepository.find({ ... })
 
         const prenotazione: string = body["id_prenotazione"];
+        /*
         const piatto: string = body["plate"];
         const dec: number = body["quantity"]
 
-        this.db[prenotazione][piatto] -= dec;
+        this.db[prenotazione][piatto] -= dec; */
 
-        this.server.emit('onMessage', {
-            "ordine": this.db[prenotazione]
-        })
+        this.db[prenotazione]["menu"] = body["menu"];
+        console.log(this.db[prenotazione]["menu"]);
+        this.server.emit('onMessage', this.db[prenotazione]["menu"]);
+
 
         // debug
         console.log(this.db);
