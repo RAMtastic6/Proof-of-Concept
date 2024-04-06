@@ -18,7 +18,7 @@ docker-compose up
 Questo comando avvierà i container secondo la configurazione definita nel file `docker-compose.yml`. Assicurati di avere Docker e Docker Compose installati sul tuo sistema prima di eseguire questo comando.
 
 Una volta avviati i container, potrai accedere all'applicazione utilizzando il browser o gli strumenti di sviluppo appropriati.
-Per esempio per poter accedere al progetto NextJS collegati al link: http://localhost:3000/create-reservation .
+Per esempio per poter accedere al progetto NextJS collegati al link: http://localhost:3000/create_reservation .
 
 Tieni presente che NextJS utilizza la porta 3000, NestJS 6969 e Postgres utilizza 7070.
 
